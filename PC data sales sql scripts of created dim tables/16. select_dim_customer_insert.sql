@@ -1,0 +1,6 @@
+SELECT TOP (1000) [Customer_ID]
+      ,[Customer_Name]
+      ,[Customer_Surname]
+      ,[Customer_Contact_Number]
+      ,[Customer_Email_Address]
+  FROM [dimtables].[dbo].[dim_customer_details]
