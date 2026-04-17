@@ -1,5 +1,6 @@
 🖥️ PC Sales Data Warehouse (SQL Server)
 
+
 📌 Project Overview
 
 This project showcases the full process of building a data warehouse using SQL Server, starting from raw CSV data to a fully structured star schema.
@@ -7,6 +8,7 @@ This project showcases the full process of building a data warehouse using SQL S
 The goal was to transform unstructured PC sales data into a clean, analytical model by creating dimension tables and a central fact table.
 
 🛠️ Tools & Technologies
+
 SQL Server (T-SQL)
 CSV Dataset
 GitHub (Version Control)
@@ -17,18 +19,30 @@ draw.io (Star Schema Design)
 /pc-sales-data-warehouse
 │── sql/
 │   ├── create_raw_table.sql
+
 │   ├── dim_customer.sql
+
 │   ├── dim_locations.sql
+
 │   ├── dim_sales_person.sql
+
 │   ├── dim_product.sql
+
 │   ├── dim_priority.sql
+
 │   ├── dim_date.sql
+
 │   ├── dim_shop.sql
+
 │   ├── dim_payment_id.sql
+
 │   ├── dim_channel.sql
+
 │   ├── fact_sales.sql
+
 │── schema/
 │   └── star_schema.drawio
+
 │── README.md
 
 ⭐ Star Schema Design
