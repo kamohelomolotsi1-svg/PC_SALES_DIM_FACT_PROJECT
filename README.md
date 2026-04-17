@@ -125,16 +125,27 @@ The fact table links all dimension tables together.
 
 CREATE TABLE [dimtables].[dbo].[pc_sales_fact](
     [Sale_ID] INT IDENTITY(1,1) PRIMARY KEY,
+    
     [Customer_ID] INT,
+    
     [Location_ID] INT,
+    
     [PC_Product_ID] INT,
+    
     [Channel_ID] INT,
+    
     [Payment_ID] INT,
+    
     [Sales_Person_ID] INT,
+    
     [Date_ID] INT,
+    
     [Shop_ID] INT,
+    
     [Priority_ID] INT
+    
 );
+
 Each column represents a foreign key to a dimension table
 Captures each sales transaction as a single row
 
