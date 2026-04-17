@@ -151,13 +151,21 @@ Captures each sales transaction as a single row
 
 
 Key Concepts Applied
+
 Dimensional Modeling
+
 Star Schema Design
+
 ETL (Extract, Transform, Load)
+
 Data Cleaning & Deduplication
+
 Primary & Foreign Key Relationships
+
 📈 Key Learnings
+
 How to structure raw data into a data warehouse
+
 Importance of removing duplicates before building dimensions
 How fact tables connect multiple dimensions
 Designing scalable data models for analytics
@@ -170,6 +178,7 @@ Automate ETL process using pipelines
 Add more advanced metrics (revenue, profit, etc.)
 
 ▶️ How to Run
+
 Create the raw table
 Load CSV data into raw_pc_data
 Run dimension table scripts
