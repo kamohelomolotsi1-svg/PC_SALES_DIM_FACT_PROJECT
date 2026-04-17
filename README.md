@@ -1,4 +1,5 @@
 🖥️ PC Sales Data Warehouse (SQL Server)
+
 📌 Project Overview
 
 This project showcases the full process of building a data warehouse using SQL Server, starting from raw CSV data to a fully structured star schema.
@@ -12,6 +13,7 @@ GitHub (Version Control)
 draw.io (Star Schema Design)
 
 📂 Project Structure
+
 /pc-sales-data-warehouse
 │── sql/
 │   ├── create_raw_table.sql
@@ -89,6 +91,8 @@ SELECT DISTINCT
     [Country_or_State],
     [Province_or_City]
 FROM [dimtables].[dbo].[raw_pc_data];
+
+
 💳 Payment Dimension
 INSERT INTO [dimtables].[dbo].[dim_payment_id]
     ([Payment_Method])
@@ -134,6 +138,7 @@ How fact tables connect multiple dimensions
 Designing scalable data models for analytics
 
 🚀 Future Improvements
+
 Add constraints (FOREIGN KEYS) for referential integrity
 Integrate with BI tools like Power BI or Looker Studio
 Automate ETL process using pipelines
