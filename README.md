@@ -7,10 +7,16 @@ this project demonstrates the end-to-end development of a data warehouse using s
 the goal was to clean, standardize, and model pc sales data into dimension tables and a centralized fact table, following real-world data engineering practices.
 
 🛠️ tools_and_technologies
+
 sql server (t-sql)
+
 csv dataset
+
 github (version control)
+
 draw.io (data modeling / star schema design)
+
+
 📂 project_structure
 /pc-sales-data-warehouse
 │── sql/
@@ -243,27 +249,40 @@ sp_load_pc_sales_fact
 this project follows a layered architecture:
 
 staging layer → raw csv data
+
 transformation layer → cleaning & deduplication
+
 presentation layer → star schema
+
 
 stored procedures ensure the pipeline is:
 
 repeatable
+
 maintainable
+
 scalable
+
 
 📈 key_learnings
 
 designing a star schema from raw data
+
 building dimension and fact tables
+
 data cleaning and deduplication techniques
+
 implementing etl pipelines using stored procedures
+
 structuring projects like real-world data warehouses
 
 🚀 future_improvements
 
 add foreign key constraints for referential integrity
+
 integrate with power bi or looker studio
+
 automate etl using pipelines (e.g., azure data factory)
+
 add advanced metrics (profit, revenue trends)
 
