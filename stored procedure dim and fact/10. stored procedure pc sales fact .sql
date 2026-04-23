@@ -12,44 +12,44 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[pc_sales_fact](
-     [Sale_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-[Customer_ID] INT,
-[Location_ID] INT,
-[PC_Product_ID] INT,
-[Channel_ID] INT,
-[Payment_ID] INT,
-[Sales_Person_ID] INT,
-[Date_ID] INT,
-[Shop_ID] INT,
-[Priority_ID] INT,
-[Cost_Price] [int] NOT NULL,
-[Sale_Price] [int] NOT NULL,
-[Discount_Amount] [int] NOT NULL,
-[Finance_Amount] [nvarchar](50) NOT NULL,
-[Credit_Score] [int] NOT NULL,
-[Total_Sales_per_Employee] [int] NOT NULL,
-[PC_Market_Price] [int] NOT NULL
+     [sale_id] INT IDENTITY(1, 1) PRIMARY KEY,
+[customer_id] INT,
+[location_id] INT,
+[pc_product_id] INT,
+[channel_id] INT,
+[payment_id] INT,
+[sales_person_id] INT,
+[date_id] INT,
+[shop_id] INT,
+[priority_id] INT,
+[cost_price] [int] NOT NULL,
+[sale_price] [int] NOT NULL,
+[discount_amount] [int] NOT NULL,
+[finance_amount] [nvarchar](50) NOT NULL,
+[credit_score] [int] NOT NULL,
+[total_sales_per_employee] [int] NOT NULL,
+[pc_market_price] [int] NOT NULL
 );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[pc_sales_fact]
-    ([Cost_Price], [Sale_Price], [Discount_Amount], [Finance_Amount], [Credit_Score], [Total_Sales_per_Employee], [PC_Market_Price])
+    ([cost_price], [sale_price], [discount_amount], [finance_amount], [credit_score], [total_sales_per_employee], [pc_market_price])
     SELECT DISTINCT
-         [Cost_Price],
-	[Sale_Price],
-	[Discount_Amount],
-	[Finance_Amount],
-	[Credit_Score],
-	[Total_Sales_per_Employee],
-	[PC_Market_Price]
+         [cost_price],
+	[sale_price],
+	[discount_amount],
+	[finance_amount],
+	[credit_score],
+	[total_sales_per_employee],
+	[pc_market_price]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Cost_Price] IS NOT NULL
-    AND [Sale_Price] IS NOT NULL
-    AND [Discount_Amount] IS NOT NULL
-    AND [Finance_Amount] IS NOT NULL
-    AND [Credit_Score] IS NOT NULL
-    AND [Total_Sales_per_Employee] IS NOT NULL
-    AND [PC_Market_Price] IS NOT NULL
+    WHERE [cost_price] IS NOT NULL
+    AND [sale_price] IS NOT NULL
+    AND [discount_amount] IS NOT NULL
+    AND [finance_amount] IS NOT NULL
+    AND [credit_score] IS NOT NULL
+    AND [total_sales_per_employee] IS NOT NULL
+    AND [pc_market_price] IS NOT NULL
    ;
       
 

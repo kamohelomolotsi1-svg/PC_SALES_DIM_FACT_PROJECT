@@ -10,16 +10,16 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_channel](
-        [Channel_ID] INT IDENTITY(1,1) PRIMARY KEY,
-        [Channel] NVARCHAR(50) NOT NULL,
+        [channel_id] INT IDENTITY(1,1) PRIMARY KEY,
+        [channel] NVARCHAR(50) NOT NULL,
     );
 
     -- Insert distinct values
-    INSERT INTO [dimtables].[dbo].[dim_channel] ([Channel])
+    INSERT INTO [dimtables].[dbo].[dim_channel] ([channel])
     SELECT DISTINCT
-        [Channel]
+        [channel]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Channel] IS NOT NULL
+    WHERE [channel] IS NOT NULL
       
 
     -- View results

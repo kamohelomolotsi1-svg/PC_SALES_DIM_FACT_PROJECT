@@ -1,3 +1,4 @@
+DROP PROCEDURE [dbo].[sp_load_dim_sales_person]
 CREATE PROCEDURE [dbo].[sp_load_dim_sales_person]
 AS
 BEGIN
@@ -8,20 +9,20 @@ BEGIN
         DROP TABLE [dimtables].[dbo].[dim_sales_person];
 
     CREATE TABLE [dimtables].[dbo].[dim_sales_person](
-        [Sales_Person_ID] INT IDENTITY(1,1) PRIMARY KEY,
-        [Sales_Person_Name] NVARCHAR(50) NOT NULL,
-        [Sales_Person_Department] NVARCHAR(50) NOT NULL
+        [sales_person_id] INT IDENTITY(1,1) PRIMARY KEY,
+        [sales_person_name] NVARCHAR(50) NOT NULL,
+        [sales_person_department] NVARCHAR(50) NOT NULL
     );
 
     -- Insert DISTINCT records to avoid duplicates
     INSERT INTO [dimtables].[dbo].[dim_sales_person]
-    ([Sales_Person_Name], [Sales_Person_Department])
+    ([sales_person_name], [sales_person_department])
     SELECT DISTINCT
-        [Sales_Person_Name],
-        [Sales_Person_Department]
+        [sales_person_name],
+        [sales_person_department]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Sales_Person_Name] IS NOT NULL
-      AND [Sales_Person_Department] IS NOT NULL;
+    WHERE [sales_person_name] IS NOT NULL
+      AND [sales_person_department] IS NOT NULL;
 
     -- Return results
     SELECT * 

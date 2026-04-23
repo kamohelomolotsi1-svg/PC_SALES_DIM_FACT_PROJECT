@@ -1,25 +1,23 @@
 DROP TABLE [dimtables].[dbo].[dim_locations]
 CREATE TABLE [dbo].[dim_locations](
-[Location_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-	[Continent] [nvarchar](50) NOT NULL,
-	[Country_or_State] [nvarchar](50) NOT NULL,
-	[Province_or_City] [nvarchar](100) NOT NULL
+[location_id] INT IDENTITY(1, 1) PRIMARY KEY,
+	[continent] [nvarchar](50) NOT NULL,
+	[country_or_state] [nvarchar](50) NOT NULL,
+	[province_or_city] [nvarchar](100) NOT NULL
 )
 
 
-INSERT INTO [dimtables].[dbo].[dim_locations](
-
-
-SELECT DISTINCT * FROM [dimtables].[dbo].[dim_locations]
 
 INSERT INTO [dimtables].[dbo].[dim_locations]
-([Continent], [Country_or_State], [Province_or_City])
-SELECT DISTINCT [Continent]
-       ,[Country_or_State]
-	   ,[Province_or_City]
+([continent], [country_or_state], [province_or_city])
+SELECT DISTINCT [continent]
+       ,[country_or_state]
+	   ,[province_or_city]
 FROM [dimtables].[dbo].[raw_pc_data]
 
 ----
+
+SELECT DISTINCT * FROM [dimtables].[dbo].[dim_locations]
 
 --INSERT INTO [dimtables].[dbo].[dim_locations]
 --([Continent], [Country_or_State], [Province_or_City])

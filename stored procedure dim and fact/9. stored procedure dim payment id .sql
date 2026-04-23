@@ -12,17 +12,17 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_payment_id](
-      [Payment_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-	[Payment_Method] [nvarchar](50) NOT NULL
+      [payment_id] INT IDENTITY(1, 1) PRIMARY KEY,
+	[payment_method] [nvarchar](50) NOT NULL
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_payment_id]
-    ([Payment_Method])
+    ([payment_method])
     SELECT DISTINCT
-         [Payment_Method]
+         [payment_method]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Payment_Method] IS NOT NULL
+    WHERE [payment_method] IS NOT NULL
    ;
       
 

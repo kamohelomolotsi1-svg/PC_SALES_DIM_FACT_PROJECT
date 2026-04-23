@@ -12,17 +12,17 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_priority](
-   [Priority_ID] INT IDENTITY (1, 1) PRIMARY KEY,
-	[Priority] [nvarchar](50) NOT NULL
+   [priority_id] INT IDENTITY (1, 1) PRIMARY KEY,
+	[priority] [nvarchar](50) NOT NULL
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_priority]
-    ([Priority])
+    ([priority])
     SELECT DISTINCT
-         [Priority]
+         [priority]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Priority] IS NOT NULL
+    WHERE [priority] IS NOT NULL
    ;
       
 

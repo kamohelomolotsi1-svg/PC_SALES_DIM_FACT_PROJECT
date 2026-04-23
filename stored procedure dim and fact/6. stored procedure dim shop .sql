@@ -12,19 +12,19 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_shop](
-[Shop_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-	[Shop_Name] [nvarchar](50) NOT NULL,
-	[Shop_Age] [nvarchar](50) NOT NULL
+[shop_id] INT IDENTITY(1, 1) PRIMARY KEY,
+	[shop_name] [nvarchar](50) NOT NULL,
+	[shop_age] [nvarchar](50) NOT NULL
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_shop]
-    ([Shop_Name], [Shop_Age])
+    ([shop_name], [shop_age])
     SELECT DISTINCT
-         [Shop_Name], [Shop_Age]
+         [shop_name], [shop_age]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Shop_Name] IS NOT NULL
-    AND [Shop_Age] IS NOT NULL
+    WHERE [shop_name] IS NOT NULL
+    AND [shop_age] IS NOT NULL
    ;
       
 

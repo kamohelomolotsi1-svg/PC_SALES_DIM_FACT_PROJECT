@@ -12,21 +12,21 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_locations](
-  [Location_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-	[Continent] [nvarchar](50) NOT NULL,
-	[Country_or_State] [nvarchar](50) NOT NULL,
-	[Province_or_City] [nvarchar](50) NOT NULL
+  [location_id] INT IDENTITY(1, 1) PRIMARY KEY,
+	[continent] [nvarchar](50) NOT NULL,
+	[country_or_state] [nvarchar](50) NOT NULL,
+	[province_or_city] [nvarchar](50) NOT NULL
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_locations]
-    ([Continent], [Country_or_State], [Province_or_City])
+    ([continent], [country_or_state], [province_or_city])
     SELECT DISTINCT
-         [Continent], [Country_or_State], [Province_or_City]
+         [continent], [country_or_state], [province_or_city]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Continent] IS NOT NULL
-    AND [Country_or_State] IS NOT NULL
-    AND [Province_or_City] IS NOT NULL
+    WHERE [continent] IS NOT NULL
+    AND [country_or_state] IS NOT NULL
+    AND [province_or_city] IS NOT NULL
    ;
       
 

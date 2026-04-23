@@ -10,23 +10,23 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_customer_details](
-        [Customer_ID] INT IDENTITY(1,1) PRIMARY KEY,
-        [Customer_Name] NVARCHAR(50) NOT NULL,
-        [Customer_Surname] NVARCHAR(50) NOT NULL,
-        [Customer_Contact_Number] NVARCHAR(50) NOT NULL,
-        [Customer_Email_Address] NVARCHAR(50) NOT NULL,
+        [customer_id] INT IDENTITY(1,1) PRIMARY KEY,
+        [customer_name] NVARCHAR(50) NOT NULL,
+        [customer_surname] NVARCHAR(50) NOT NULL,
+        [customer_contact_number] NVARCHAR(50) NOT NULL,
+        [customer_email_address] NVARCHAR(50) NOT NULL,
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_customer_details]
-    ([Customer_Name], [Customer_Surname], [Customer_Contact_Number], [Customer_Email_Address])
+    ([customer_name], [customer_surname], [customer_contact_number], [customer_email_address])
     SELECT DISTINCT
-         [Customer_Name], [Customer_Surname], [Customer_Contact_Number], [Customer_Email_Address]
+         [customer_name], [customer_surname], [customer_contact_number], [customer_email_address]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Customer_Name] IS NOT NULL
-    AND [Customer_Surname] IS NOT NULL
-    AND [Customer_Contact_Number] IS NOT NULL
-    AND [Customer_Email_Address] IS NOT NULL;
+    WHERE [customer_name] IS NOT NULL
+    AND [customer_surname] IS NOT NULL
+    AND [customer_contact_number] IS NOT NULL
+    AND [customer_email_address] IS NOT NULL;
       
 
     -- View results

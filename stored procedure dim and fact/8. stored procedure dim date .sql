@@ -12,19 +12,19 @@ BEGIN
 
     -- Recreate table
     CREATE TABLE [dimtables].[dbo].[dim_date](
-  [Date_ID] INT IDENTITY(1, 1) PRIMARY KEY,
-	[Purchase_Date] [datetime2](7) NOT NULL,
-	[Ship_Date] [nvarchar](50) NOT NULL
+  [date_id] INT IDENTITY(1, 1) PRIMARY KEY,
+	[purchase_date] [datetime2](7) NOT NULL,
+	[ship_date] [nvarchar](50) NOT NULL
     );
 
     -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_date]
-    ([Purchase_Date], [Ship_Date])
+    ([purchase_date], [ship_date])
     SELECT DISTINCT
-         [Purchase_Date], [Ship_Date]
+         [purchase_date], [ship_date]
     FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [Purchase_Date] IS NOT NULL
-    AND [Ship_Date] IS NOT NULL
+    WHERE [purchase_date] IS NOT NULL
+    AND [ship_date] IS NOT NULL
    ;
       
 
