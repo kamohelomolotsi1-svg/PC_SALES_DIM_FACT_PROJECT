@@ -26,19 +26,78 @@ INSERT INTO [dimtables].[dbo].[pc_sales_fact]
 ,[finance_amount]
 ,[credit_score]
 ,[total_sales_per_employee]
-,[pc_market_price])
-SELECT DISTINCT [cost_price],
-	[sale_price],
-	[discount_amount],
-	[finance_amount],
-	[credit_score],
-	[total_sales_per_employee],
-	[pc_market_price]
-FROM [dimtables].[dbo].[raw_pc_data]
+,[pc_market_price]
+,[pc_product_id]
+,[sales_person_id]
+,[location_id]
+,[payment_id]
+,[shop_id]
+,[priority_id]
+,[date_id]
+,[channel_id]
+,[customer_id]
+
+)
+
+SELECT  
+A.[cost_price],
+A.[sale_price],
+A.[discount_amount],
+A.[finance_amount],
+A.[credit_score],
+A.[total_sales_per_employee],
+A.[pc_market_price],
+B.[pc_product_id],
+C.[sales_person_id],
+D.[location_id],
+E.[payment_id],
+F.[shop_id],
+G.[priority_id],
+H.[date_id],
+I.[channel_id],
+J.[customer_id]
+FROM [dimtables].[dbo].[raw_pc_data] A
+
+INNER JOIN [dimtables].[dbo].[dim_pc_product] B
+ON A.pc_make = B.pc_make
+
+INNER JOIN [dimtables].[dbo].[dim_sales_person] C
+ON A.sales_person_department = C.sales_person_department
+
+INNER JOIN [dimtables].[dbo].[dim_locations] D
+ON A.continent = D.continent
+
+INNER JOIN [dimtables].[dbo].[dim_payment_id] E
+ON A.payment_method = E.payment_method
+
+INNER JOIN [dimtables].[dbo].[dim_shop] F
+ON A.shop_name = F.shop_name
+
+INNER JOIN [dimtables].[dbo].[dim_priority] G
+ON A.priority = G.priority
+
+INNER JOIN [dimtables].[dbo].[dim_date] H
+ON A.purchase_date = H.purchase_date
+
+INNER JOIN [dimtables].[dbo].[dim_channel] I
+ON A.channel = I.channel
+
+INNER JOIN [dimtables].[dbo].[dim_customer_details] J
+ON A.customer_name = J.customer_name
 
 
 
+----
 SELECT * FROM [dimtables].[dbo].[pc_sales_fact]
+
+----
+
+TRUNCATE TABLE [dimtables].[dbo].[pc_sales_fact]
+
+
+
+
+
 
 
 	--CONSTRAINT fk_Customer_ID
@@ -68,6 +127,16 @@ SELECT * FROM [dimtables].[dbo].[pc_sales_fact]
 	--CONSTRAINT fk_Priority_ID
 	           --FOREIGN KEY (Priority_ID)
 	           --REFERENCES [dimtables].[dbo].[dim_priority] (Priority_ID)
+
+
+SELECT customer_name, COUNT(*)
+FROM [dimtables].[dbo].[dim_customer_details]
+GROUP BY customer_name
+HAVING COUNT(*) > 1;
+
+
+
+
 
 
 
