@@ -5,7 +5,7 @@ CREATE TABLE [dimtables].[dbo].[dim_date](
 	[ship_date] [nvarchar](50) NOT NULL
 )
 
-SELECT * FROM [dimtables].[dbo].[dim_date]
+
 
 INSERT INTO [dimtables].[dbo].[dim_date]
 ([purchase_date], [ship_date])
@@ -38,3 +38,6 @@ UNION
 SELECT DISTINCT TRY_CONVERT(DATE, ship_date, 103) FROM [dimtables].[dbo].[raw_pc_data]
 ) AS dates
 WHERE Full_Date IS NOT NULL
+
+----
+SELECT * FROM [dimtables].[dbo].[dim_date2]

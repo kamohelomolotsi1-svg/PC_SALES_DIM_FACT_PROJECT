@@ -12,3 +12,7 @@ INSERT INTO [dimtables].[dbo].[dim_channel]
 SELECT DISTINCT [channel]
 --INTO [dimtables].[dbo].[dim_channel]
 FROM [dimtables].[dbo].[raw_pc_data]
+
+----
+
+select * from [dimtables].[dbo].[dim_channel]

@@ -1,4 +1,26 @@
-TRUNCATE TABLE [dimtables].[dbo].[pc_sales_fact]
+DROP TABLE [dimtables].[dbo].[pc_sales_fact]
+
+
+CREATE TABLE [dimtables].[dbo].[pc_sales_fact](
+[sale_id] INT IDENTITY(1, 1) PRIMARY KEY,
+[customer_id] INT,
+[location_id] INT,
+[pc_product_id] INT,
+[channel_id] INT,
+[payment_id] INT,
+[sales_person_id] INT,
+[date_id] INT,
+[shop_id] INT,
+[priority_id] INT,
+[cost_price] [int] NOT NULL,
+[sale_price] [int] NOT NULL,
+[discount_amount] [int] NOT NULL,
+[finance_amount] [nvarchar](50) NOT NULL,
+[credit_score] [int] NOT NULL,
+[total_sales_per_employee] [int] NOT NULL,
+[pc_market_price] [int] NOT NULL)
+
+
 INSERT INTO [dimtables].[dbo].[pc_sales_fact]
 (
     [customer_id],
@@ -92,11 +114,11 @@ ON A.priority = G.priority
 
 -- Date (deduplicated + safe conversion)
 LEFT JOIN (
-    SELECT purchase_date, MIN(date_id) AS date_id
-    FROM [dimtables].[dbo].[dim_date]
-    GROUP BY purchase_date
+SELECT full_date, MIN(date_id) AS date_id
+FROM [dimtables].[dbo].[dim_date2]
+GROUP BY full_date
 ) H
-ON TRY_CONVERT(DATE, A.purchase_date) = H.purchase_date
+ON TRY_CONVERT(DATE, A.purchase_date) = H.full_date
 
 -- Channel (deduplicated)
 LEFT JOIN (

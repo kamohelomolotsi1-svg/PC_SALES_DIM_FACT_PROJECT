@@ -1,29 +1,20 @@
-DROP PROCEDURE [dbo].[sp_load_dim_channel]
-CREATE PROCEDURE [dbo].[sp_load_dim_channel]
+DROP PROCEDURE sp_load_dim_channel
+
+CREATE PROCEDURE sp_load_dim_channel
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Drop table if exists (full reload)
-    IF OBJECT_ID('[dimtables].[dbo].[dim_channel]', 'U') IS NOT NULL
-        DROP TABLE [dimtables].[dbo].[dim_channel];
-
-    -- Recreate table
-    CREATE TABLE [dimtables].[dbo].[dim_channel](
-        [channel_id] INT IDENTITY(1,1) PRIMARY KEY,
-        [channel] NVARCHAR(50) NOT NULL,
+    INSERT INTO [dimtables].[dbo].[dim_channel]
+    ([channel])
+    SELECT DISTINCT r.[channel]
+    FROM [dimtables].[dbo].[raw_pc_data] r
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM [dimtables].[dbo].[dim_channel] d
+        WHERE d.channel = r.channel
     );
-
-    -- Insert distinct values
-    INSERT INTO [dimtables].[dbo].[dim_channel] ([channel])
-    SELECT DISTINCT
-        [channel]
-    FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [channel] IS NOT NULL
-      
-
-    -- View results
-    SELECT * FROM [dimtables].[dbo].[dim_channel];
 END;
 
-EXEC [dbo].[sp_load_dim_channel]
+
+EXEC sp_load_dim_channel;

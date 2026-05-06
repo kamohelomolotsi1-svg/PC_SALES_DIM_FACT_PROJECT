@@ -1,36 +1,30 @@
-DROP PROCEDURE [dbo].[sp_load_dim_date]
---
-
-CREATE PROCEDURE [dbo].[sp_load_dim_date]
+CREATE PROCEDURE sp_load_dim_date
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Drop table if exists (full reload)
-    IF OBJECT_ID('[dimtables].[dbo].[dim_date]', 'U') IS NOT NULL
-        DROP TABLE [dimtables].[dbo].[dim_date];
-
-    -- Recreate table
-    CREATE TABLE [dimtables].[dbo].[dim_date](
-  [date_id] INT IDENTITY(1, 1) PRIMARY KEY,
-	[purchase_date] [datetime2](7) NOT NULL,
-	[ship_date] [nvarchar](50) NOT NULL
-    );
-
-    -- Insert distinct values
-    INSERT INTO [dimtables].[dbo].[dim_date]
-    ([purchase_date], [ship_date])
+    INSERT INTO [dimtables].[dbo].[dim_date2]
+    ([full_date], [month], [year])
     SELECT DISTINCT
-         [purchase_date], [ship_date]
-    FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [purchase_date] IS NOT NULL
-    AND [ship_date] IS NOT NULL
-   ;
-      
+        d.Full_Date,
+        MONTH(d.Full_Date),
+        YEAR(d.Full_Date)
+    FROM (
+        SELECT TRY_CONVERT(DATE, purchase_date, 103) AS Full_Date
+        FROM [dimtables].[dbo].[raw_pc_data]
 
-    -- View results
-    SELECT * FROM [dimtables].[dbo].[dim_date];
+        UNION
+
+        SELECT TRY_CONVERT(DATE, ship_date, 103)
+        FROM [dimtables].[dbo].[raw_pc_data]
+    ) d
+    WHERE d.Full_Date IS NOT NULL
+    AND NOT EXISTS (
+        SELECT 1
+        FROM [dimtables].[dbo].[dim_date2] x
+        WHERE x.full_date = d.Full_Date
+    );
 END;
 
 
-EXEC [dbo].[sp_load_dim_date]
+EXEC sp_load_dim_date;

@@ -1,36 +1,20 @@
-DROP PROCEDURE [dbo].[sp_load_dim_payment_id]
---
+DROP PROCEDURE sp_load_dim_payment
 
-CREATE PROCEDURE [dbo].[sp_load_dim_payment_id]
+CREATE PROCEDURE sp_load_dim_payment
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Drop table if exists (full reload)
-    IF OBJECT_ID('[dimtables].[dbo].[dim_payment_id]', 'U') IS NOT NULL
-        DROP TABLE [dimtables].[dbo].[dim_payment_id];
-
-    -- Recreate table
-    CREATE TABLE [dimtables].[dbo].[dim_payment_id](
-      [payment_id] INT IDENTITY(1, 1) PRIMARY KEY,
-	[payment_method] [nvarchar](50) NOT NULL
-    );
-
-    -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_payment_id]
     ([payment_method])
-    SELECT DISTINCT
-         [payment_method]
-    FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [payment_method] IS NOT NULL
-   ;
-      
-
-    -- View results
-    SELECT * FROM [dimtables].[dbo].[dim_payment_id];
+    SELECT DISTINCT r.[payment_method]
+    FROM [dimtables].[dbo].[raw_pc_data] r
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM [dimtables].[dbo].[dim_payment_id] d
+        WHERE d.payment_method = r.payment_method
+    );
 END;
 
 
-
-
-EXEC [dbo].[sp_load_dim_payment_id]
+EXEC sp_load_dim_payment;

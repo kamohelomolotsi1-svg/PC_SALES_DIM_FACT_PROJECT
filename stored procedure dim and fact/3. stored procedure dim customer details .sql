@@ -1,36 +1,26 @@
-DROP PROCEDURE [dbo].[sp_load_dim_customer_details]
-CREATE PROCEDURE [dbo].[sp_load_dim_customer_details]
+CREATE PROCEDURE sp_load_dim_customer
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Drop table if exists (full reload)
-    IF OBJECT_ID('[dimtables].[dbo].[dim_customer_details]', 'U') IS NOT NULL
-        DROP TABLE [dimtables].[dbo].[dim_customer_details];
-
-    -- Recreate table
-    CREATE TABLE [dimtables].[dbo].[dim_customer_details](
-        [customer_id] INT IDENTITY(1,1) PRIMARY KEY,
-        [customer_name] NVARCHAR(50) NOT NULL,
-        [customer_surname] NVARCHAR(50) NOT NULL,
-        [customer_contact_number] NVARCHAR(50) NOT NULL,
-        [customer_email_address] NVARCHAR(50) NOT NULL,
-    );
-
-    -- Insert distinct values
     INSERT INTO [dimtables].[dbo].[dim_customer_details]
     ([customer_name], [customer_surname], [customer_contact_number], [customer_email_address])
     SELECT DISTINCT
-         [customer_name], [customer_surname], [customer_contact_number], [customer_email_address]
-    FROM [dimtables].[dbo].[raw_pc_data]
-    WHERE [customer_name] IS NOT NULL
-    AND [customer_surname] IS NOT NULL
-    AND [customer_contact_number] IS NOT NULL
-    AND [customer_email_address] IS NOT NULL;
-      
-
-    -- View results
-    SELECT * FROM [dimtables].[dbo].[dim_customer_details];
+        r.[customer_name],
+        r.[customer_surname],
+        r.[customer_contact_number],
+        r.[customer_email_address]
+    FROM [dimtables].[dbo].[raw_pc_data] r
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM [dimtables].[dbo].[dim_customer_details] d
+        WHERE d.customer_name = r.customer_name
+          AND d.customer_surname = r.customer_surname
+          AND d.customer_contact_number = r.customer_contact_number
+          AND d.customer_email_address = r.customer_email_address
+    );
 END;
 
-EXEC [dbo].[sp_load_dim_customer_details]
+
+
+EXEC sp_load_dim_customer;
